@@ -3,18 +3,23 @@ using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
-   private Transform player;
+   Transform player;
    [SerializeField] private float speed = 5f;
    [SerializeField] private float pickUpDistance = 1.5f;
    [SerializeField] private float ttl = 10f;
 
+   public Item item;
+   public int count = 1;
+
    private void Awake()
    {
       player = GameManager.instance.player.transform;
+      
    }
 
    private void Update()
    {
+      
       ttl -= Time.deltaTime;
       if (ttl < 0)
       {
@@ -31,5 +36,17 @@ public class PickUpItem : MonoBehaviour
          transform.position,
           player.position, 
          speed * Time.deltaTime);
+      if (distance < 0.1f)
+      {
+         if (GameManager.instance.inventoryContainer != null)
+         {
+            GameManager.instance.inventoryContainer.Add(item, count); 
+         }
+         else
+         {
+            Debug.LogWarning("NO inventory container attached to the gama manager");
+         }
+         Destroy(gameObject);
+      }
    }
 } 

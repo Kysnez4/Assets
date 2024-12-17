@@ -1,5 +1,7 @@
 using UnityEngine;
-    public class GameManager: MonoBehaviour
+using UnityEngine.Serialization;
+
+public class GameManager: MonoBehaviour
     {
         public static GameManager instance;
         private void Awake()
@@ -8,4 +10,7 @@ using UnityEngine;
         }
 
         public GameObject player;
+        public ItemContainer inventoryContainer;
+        public ItemDragAndDropController dragAndDropController;
+
     }
